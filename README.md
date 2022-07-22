@@ -47,6 +47,66 @@ flowchart TD
 
 La propuesta 1. es útil para un primer escenario donde no hay mediciones. La propuesta 2. es más sofisticada y (posiblemente) entrega estimaciones más precisas que pueden irse refinando automáticamente con el tiempo.
 
+## GTFS
+
+El siguiente es un esbozo de la base de datos de GTFS, representado en un diagrama de entidad-relación (no exhaustivo). Más información en [GTFS.org](https://gtfs.org/).
+
+```mermaid
+erDiagram
+    agency ||--|{ routes : tiene
+    routes ||--|{ trips : realiza
+    trips ||--|{ stop_times : "pasa por"
+    trips }|--|| shapes : "sigue la trayectoria"
+    trips }|--|| calendar : "opera en"
+    stop_times ||--|{ stops : en
+    
+    agency {
+      text agency_name
+      url agency_url
+      number agency_phone
+      email agency_email
+    }
+    routes {
+      text route_long_name
+      text route_desc
+      enum route_type
+      url route_url
+      hex route_color
+    }
+    trips {
+      text trip_short_name
+      enum direction_id
+      enum wheelchair_accessible
+      enum bikes_allowed
+    }
+    stop_times {
+      time arrival_time
+      time departure_time
+    }
+    stops {
+      text stop_name
+      text stop_desc
+      latitude stop_lat
+      longitude stop_lon
+      id zone_id
+    }
+    shapes {
+      latitude shape_pt_lat
+      longitude shape_pt_lon
+      uint shape_pt_sequence
+      ufloat shape_dist_traveled
+    }
+    calendar {
+      enum monday
+      enum tuesday
+      enum wednesday
+      enum thursday
+      enum friday
+      enum saturday
+      enum sunday
+    }
+```
+
 ## Adaptaciones a GTFS
 
 Para hacer posible la edición de los horarios descrita anteriormente, es necesario hacer dos tipos de adaptaciones a GTFS:
