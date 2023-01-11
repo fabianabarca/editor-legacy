@@ -1,16 +1,17 @@
-# Editor de horarios para GTFS
+# Editor de datos GTFS *Schedule*
+
 Descripción:
 
-> Es una interfaz para la edición de horarios de viajes de rutas de autobús, especificando solamente la hora de salida y opcionalmente la duración del viaje. El programa genera un archivo `stop_times.txt` válido de GTFS con una estimación de los tiempos de salida del resto de paradas en el viaje.
+> Es una plataforma web para la edición de datos GTFS *Schedule*. Incluye la mayoría de los datos especificados en la [referencia GTFS](https://gtfs.org/schedule/reference/). Como adaptación especial, construye automáticamente los horarios de viajes de rutas de autobús, especificando solamente la hora de salida y opcionalmente la duración del viaje, generando un archivo `stop_times.txt` válido de GTFS con una estimación de los tiempos de salida del resto de paradas en el viaje.
 
 ## Premisas y contexto
 
-- Los horarios de autobus cambian constantemente. 
+- Los horarios de autobús cambian constantemente. 
 - En Costa Rica esta información se especifica como una tabla de **horarios de salida de cada viaje**.
-- GTFS maneja esta misma información como **horarios de salida de cada parada de cada viaje**.
+- GTFS, en cambio, maneja esta misma información como **horarios de salida de cada parada para cada viaje**.
 - Lo anterior resulta, generalmente, en tablas de miles de entradas y por tanto es difícil de editar, incluso para cambios menores.
-- Es más común conocer solamente la hora de salida y la duración del viaje. Con esto es posible hacer estimaciones de los tiempos de llegada y salida de las otras paradas.
-- Es posible también hacer estudios de duración de los viajes, pero no es práctico hacerlo para todos los viajes.
+- Es más común conocer solamente la hora de salida y la duración del viaje. Con esta información es posible hacer estimaciones de los tiempos de llegada y salida de las otras paradas.
+- Es posible también hacer estudios de duración de los viajes.
 - Es necesario crear estrategias de adaptación dinámica a los cambios de horarios.
 
 Algunas definiciones:
