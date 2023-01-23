@@ -20,4 +20,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('website.urls'), name='index'),
     path('datos/', include('viewing.urls'), name='datos'),
+    path('edicion/', include('editing.urls'), name='edicion'),
+    path('reportes/', include('reporting.urls'), name='reportes'),
+    path('exportacion/', include('exporting.urls'), name='exportacion'),
+    path('importacion/', include('importing.urls'), name='importacion'),
+    path('perfil/', include('users.urls'), name='perfil'),
 ]
