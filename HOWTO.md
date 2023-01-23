@@ -18,4 +18,8 @@ from decouple import config
 
 (Seguir instrucciones de la documentación).
 
-> El equipo de desarrolladores compartirá el documento `settings.env`.
+> El equipo de desarrolladores compartirá el documento `.env`.
+
+## Discusión: Bootstrap vs Primer
+
+Más adelante en el desarrollo hay que decidir entre posibles *frameworks* de HTML, CSS y JavaScript. En el TCU tenemos experiencia con [Bootstrap](https://getbootstrap.com/) pero también existe la posibilidad de seguir el estilo de GitHub mismo con [Primer](https://primer.style/). Queda abierta la discusión.
