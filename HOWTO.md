@@ -54,19 +54,19 @@ Con base en la funcionalidad descrita, es posible crear un primer esbozo de las 
     - `/gtfs`: información sobre GTFS y su implementación
     - `/acerca`, `/contacto`, etc.: información sobre el sitio web
 - ***viewing***
-    - `/<código-de-agencia>`: información básica de la agencia y sus rutas
-    - `/<código-de-ruta>`: información básica de la ruta, sin posibilidades de edición
-    - `/buscar?param=valor`: resultados de la búsqueda de datos
+    - `/datos/<código-de-agencia>`: información básica de la agencia y sus rutas
+    - `/datos/<código-de-ruta>`: información básica de la ruta, sin posibilidades de edición
+    - `/datos/buscar?param=valor`: resultados de la búsqueda de datos
 - ***editing***
-    - `/<código-de-agencia>/edicion`: editor de datos de la agencia elegida
-    - `/<código-de-ruta>/edicion`: editor de datos de la ruta elegida
+    - `/edicion/<código-de-agencia>`: editor de datos de la agencia elegida
+    - `/edicion/<código-de-ruta>`: editor de datos de la ruta elegida
 - ***reporting***
-    - `/datos`: página para la visualización de datos y creación de reportes
-    - `/datos/<tabla-gtfs>`: información global (de todas las agencias y todas las rutas) de cualquiera de las tablas GTFS, como *stops*, *calendar*, *trips*, etc. Debe estar al menos la explicación de su contenido y quizá algunas estadísticas o gráficas (especialmente cuando no se puede mostrar todo el contenido). Puede incluir opciones de filtrado.
+    - `/reportes`: página para la visualización de datos y creación de reportes
+    - `/reportes/<tabla-gtfs>`: información global (de todas las agencias y todas las rutas) de cualquiera de las tablas GTFS, como *stops*, *calendar*, *trips*, etc. Debe estar al menos la explicación de su contenido y quizá algunas estadísticas o gráficas (especialmente cuando no se puede mostrar todo el contenido). Puede incluir opciones de filtrado.
 - ***exporting***
     - `/exportacion`: exportador de datos seleccionados como un archivo comprimido .zip
-    - `/<código-de-agencia>/exportacion`: exportador de datos de la agencia elegida como un archivo comprimido .zip
-    - `/<código-de-ruta>/exportacion`: exportador de datos de la ruta elegida como un archivo comprimido .zip
+    - `/exportacion/<código-de-agencia>`: exportador de datos de la agencia elegida como un archivo comprimido .zip
+    - `/exportacion/<código-de-ruta>`: exportador de datos de la ruta elegida como un archivo comprimido .zip
 - ***importing***
     - `/importacion`: página para la importación y revisión de nuevos *feeds* GTFS
 - ***users***
