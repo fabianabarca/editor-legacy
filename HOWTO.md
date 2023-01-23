@@ -54,6 +54,7 @@ Con base en la funcionalidad descrita, es posible crear un primer esbozo de las 
     - `/gtfs`: información sobre GTFS y su implementación
     - `/acerca`, `/contacto`, etc.: información sobre el sitio web
 - ***viewing***
+    - `/datos`: página de meta información sobre los datos que contiene la página
     - `/datos/<código-de-agencia>`: información básica de la agencia y sus rutas
     - `/datos/<código-de-ruta>`: información básica de la ruta, sin posibilidades de edición
     - `/datos/buscar?param=valor`: resultados de la búsqueda de datos
