@@ -31,10 +31,12 @@ Django utiliza "apps" para manejar el sitio. Por experiencia, sabemos que son di
     <dd>Despliega los datos de GTFS con visualizaciones apropiadas, como mapas, gráficas, etc.</dd>
     <dt>editing</dt>
     <dd>Facilita la edición de los datos de GTFS con interfaces apropiadas, como mapas, formularios, etc.</dd>
-    <dt>exporting</dt>
-    <dd>Crea los archivos .zip de exportación de GTFS, que es la utilidad central del editor, y además gestiona la importación de nuevos feeds GTFS.</dd>
     <dt>reporting</dt>
     <dd>Crea y muestra reportes a partir de los datos GTFS, como gráficas, análisis estadísticos, etc.</dd>
+    <dt>exporting</dt>
+    <dd>Crea los archivos .zip de exportación de GTFS, que es la utilidad central del editor.</dd>
+    <dt>importing</dt>
+    <dd>Lee y valida los archivos .zip para la importación de datos GTFS y los incorpora en la base de datos.</dd>
     <dt>website</dt>
     <dd>Despliega algunas páginas generales del sitio.</dd>
     <dt>users</dt>
@@ -65,6 +67,7 @@ Con base en la funcionalidad descrita, es posible crear un primer esbozo de las 
     - `/exportacion`: exportador de datos seleccionados como un archivo comprimido .zip
     - `/<código-de-agencia>/exportacion`: exportador de datos de la agencia elegida como un archivo comprimido .zip
     - `/<código-de-ruta>/exportacion`: exportador de datos de la ruta elegida como un archivo comprimido .zip
+- ***importing***
     - `/importacion`: página para la importación y revisión de nuevos *feeds* GTFS
 - ***users***
     - `/perfil`: página de información de la persona usuaria
