@@ -35,6 +35,8 @@ Django utiliza "apps" para manejar el sitio. Por experiencia, sabemos que son di
     <dd>Crea los archivos .zip de exportación de GTFS, que es la utilidad central del editor, y además gestiona la importación de nuevos feeds GTFS.</dd>
     <dt>reporting</dt>
     <dd>Crea y muestra reportes a partir de los datos GTFS, como gráficas, análisis estadísticos, etc.</dd>
+    <dt>website</dt>
+    <dd>Despliega algunas páginas generales del sitio.</dd>
     <dt>users</dt>
     <dd>Administra los distintos tipos de usuarios del sistema.</dd>
 </dl>
@@ -43,18 +45,30 @@ Aunque `gtfs` y `edit` podrían ser una misma app, están separadas para poder u
 
 ## Páginas del sitio
 
-Con base en la funcionalidad descrita y las apps existentes, es posible crear un primer esbozo de las páginas que tendrá el sitio (arquitectura de información):
+Con base en la funcionalidad descrita, es posible crear un primer esbozo de las páginas que tendrá el sitio (arquitectura de información), clasificadas según el app que las gestiona:
 
-> Es necesario determinar si la información será desplegada por **ruta** o por **agencia**. Posiblemente por ruta o conjunto de rutas.
-
-- `/`: página de bienvenida, incluyendo la lista de feeds disponibles y búsquedas de datos.
-- `/<código-de-agencia>`: información básica de la agencia y sus rutas
-- `/<código-de-ruta>`: información básica de la ruta, sin posibilidades de edición
+- ***website***
+    - `/`: página de bienvenida, incluyendo la lista de feeds disponibles
+    - `/gtfs`: información sobre GTFS y su implementación
+    - `/acerca`, `/contacto`, etc.: información sobre el sitio web
+- ***viewing***
+    - `/<código-de-agencia>`: información básica de la agencia y sus rutas
+    - `/<código-de-ruta>`: información básica de la ruta, sin posibilidades de edición
+    - `/buscar?param=valor`: resultados de la búsqueda de datos
+- ***editing***
+    - `/<código-de-agencia>/edicion`: editor de datos de la agencia elegida
     - `/<código-de-ruta>/edicion`: editor de datos de la ruta elegida
+- ***reporting***
+    - `/datos`: página para la visualización de datos y creación de reportes
+    - `/datos/<tabla-gtfs>`: información global (de todas las agencias y todas las rutas) de cualquiera de las tablas GTFS, como *stops*, *calendar*, *trips*, etc. Debe estar al menos la explicación de su contenido y quizá algunas estadísticas o gráficas (especialmente cuando no se puede mostrar todo el contenido). Puede incluir opciones de filtrado.
+- ***exporting***
+    - `/exportacion`: exportador de datos seleccionados como un archivo comprimido .zip
+    - `/<código-de-agencia>/exportacion`: exportador de datos de la agencia elegida como un archivo comprimido .zip
     - `/<código-de-ruta>/exportacion`: exportador de datos de la ruta elegida como un archivo comprimido .zip
-- `/datos`: página para la creación de reportes y visualización de datos
-- `/importacion`: página para la importación y revisión de nuevos *feeds* GTFS
-- `/perfil`: página de información de la persona usuaria
+    - `/importacion`: página para la importación y revisión de nuevos *feeds* GTFS
+- ***users***
+    - `/perfil`: página de información de la persona usuaria
+
 
 **Nota 1**: se asume la existencia de un código único para cada agencia y cada ruta. No hay una asignación del tipo `/<código-de-agencia>/<código-de-ruta>`
 porque las rutas pueden cambiar de agencia (empresa concesionaria), de forma que la agencia es solo un "atributo" de cada ruta y tiene precedencia.
