@@ -1,5 +1,4 @@
-from django.shortcuts import get_object_or_404
-from django.db import models
+from django.contrib.gis.db import models
 
 
 # Models for the system
@@ -470,15 +469,15 @@ class Zone(models.Model):
     def __str__(self):
         return self.zone_id
 
-# class GeoShape(models.Model):
-#     """The path the vehicle takes along the route.
-#     Implements shapes.txt."""
-#     shape_id = models.CharField(
-#         max_length=255, db_index=True,
-#         help_text="Unique identifier for a shape.")
-#     trajectory = models.LineStringField(
-#         null=True, blank=True,
-#         help_text='Geometry cache of ShapePoints')
+class GeoShape(models.Model):
+    """The path the vehicle takes along the route.
+    Implements shapes.txt."""
+    shape_id = models.CharField(
+        max_length=255, db_index=True, primary_key=True,
+        help_text="Unique identifier for a shape.")
+    trajectory = models.LineStringField(
+        null=True, blank=True,
+        help_text='Geometry cache of ShapePoints')
 
 
 class Shape(models.Model):
