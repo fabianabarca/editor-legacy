@@ -1,7 +1,46 @@
 from django.shortcuts import get_object_or_404
 from django.db import models
 
-# Create your models here.
+
+# Models for the system
+
+
+class Company(models.Model):
+    """A company that provides transit service.
+
+    This company may provide service for multiple agencies.
+    TODO: add PhoneNumberField
+    """
+    name = models.CharField(max_length=127)
+    address = models.CharField(max_length=1024)
+    phone = models.CharField(max_length=255)
+    email = models.EmailField(max_length=254)
+    website = models.URLField(blank=True)
+    logo = models.ImageField(upload_to='logos/', blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Feed(models.Model):
+    """Container of the GTFS files.
+    
+    TODO: a function to check if there are changes in the feed.
+    TODO: a function to create the feed_id from the date of creation.
+    """
+    feed_id = models.CharField(max_length=255, blank=True, db_index=True)
+    zip_file = models.FileField(upload_to='feeds/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    current = models.BooleanField(default=True)
+
+    def __str__(self):
+        """Returns a name for the feed with a version number. The 
+        version number is the date and time when the feed was created."""
+        x = self.created_at
+        return f'GTFS v{x.year}.{x.month}.{x.day}.{x.hour}.{x.minute}'
+
+
+# Models for the GTFS feed
 
 
 class Agency(models.Model):
@@ -431,13 +470,13 @@ class Zone(models.Model):
     def __str__(self):
         return self.zone_id
 
-# class Shape(models.Model):
+# class GeoShape(models.Model):
 #     """The path the vehicle takes along the route.
 #     Implements shapes.txt."""
 #     shape_id = models.CharField(
 #         max_length=255, db_index=True,
 #         help_text="Unique identifier for a shape.")
-#     geometry = models.LineStringField(
+#     trajectory = models.LineStringField(
 #         null=True, blank=True,
 #         help_text='Geometry cache of ShapePoints')
 
