@@ -8,4 +8,14 @@
 
 <p>Aquí se puede exportar para consumo en otros sistemas.</p>
 
+{% if feeds %}
+
+{% for feed in gtfs %}
+<ol>
+    <li>{{ feed.agency_id }}</li>
+</ol>
+{& endfor %}
+
+{% endif %}
+
 {% endblock %}

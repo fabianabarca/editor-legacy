@@ -25,4 +25,8 @@ urlpatterns = [
     path('exportacion/', include('exporting.urls'), name='exportacion'),
     path('importacion/', include('importing.urls'), name='importacion'),
     path('perfil/', include('users.urls'), name='perfil'),
+    path('gtfs/', include('gtfs.urls'), name='gtfs'),
 ]
+
+# URLS para el editor de GTFS
+# editorbuses.cr/gtfs/<version-gtfs>/editar/

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+<h1>Información de un feed específico</h1>
+
+<p>Información de GTFS y datos disponibles.</p>
+
+<ul>
+    <li>Nombre: {{ agency.name }}</li>
+    <li>URL: {{ agency.url }}</li>
+    <li>Zona horaria: {{ agency.timezone }}</li>
+    <li>Idioma: {{ agency.lang }}</li>
+</ul>
+
+{% endblock %}

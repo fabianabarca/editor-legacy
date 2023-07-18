@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+<h1>Editar información de un feed específico</h1>
+
+<p>Información de GTFS y datos disponibles.</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre de la agencia</label>
+        <input type="text" class="form-control" id="name" aria-describedby="name-current" name="name">
+        <div id="name-current" class="form-text">Nombre actual: {{ agency.name }}</div>
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Teléfono</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+
+{% endblock %}
