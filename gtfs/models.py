@@ -55,30 +55,26 @@ class Agency(models.Model):
 
     agency_id = models.CharField(
         primary_key=True,
-        max_length=255,
-        blank=True,
-        db_index=True,
+        max_length=127,
         help_text="Identificador único de la agencia de transportes.",
     )
     name = models.CharField(
         max_length=255, help_text="Nombre completo de la agencia de transportes."
     )
-    url = models.URLField(blank=True, help_text="URL de la agencia de transportes.")
+    url = models.URLField(help_text="URL de la agencia de transportes.")
     timezone = models.CharField(
         max_length=255, help_text="Zona horaria de la agencia de transportes."
     )
     lang = models.CharField(
-        max_length=2, blank=True, help_text="Código ISO 639-1 de idioma primario."
+        max_length=2, help_text="Código ISO 639-1 de idioma primario."
     )
     phone = models.CharField(
-        max_length=255, blank=True, help_text="Número de teléfono."
+        max_length=255, help_text="Número de teléfono."
     )
     fare_url = models.URLField(
-        blank=True, help_text="URL para la compra de tiquetes en línea."
+        help_text="URL para la compra de tiquetes en línea."
     )
     email = models.EmailField(
-        max_length=254,
-        blank=True,
         help_text="Correo electrónico de servicio al cliente.",
     )
 
@@ -638,18 +634,8 @@ class Zone(models.Model):
     def __str__(self):
         return self.zone_id
 
-# class Shape(models.Model):
-#     """The path the vehicle takes along the route.
-#     Implements shapes.txt."""
-#     shape_id = models.CharField(
-#         max_length=255, db_index=True,
-#         help_text="Unique identifier for a shape.")
-#     geometry = models.LineStringField(
-#         null=True, blank=True,
-#         help_text='Geometry cache of ShapePoints')
 
-
-class Shape(models.Model):
+class GeoShape(models.Model):
     """The path the vehicle takes along the route.
     Implements shapes.txt."""
 
@@ -657,6 +643,22 @@ class Shape(models.Model):
         primary_key=True,
         max_length=255,
         db_index=True,
+        help_text="Identificador único de una trayectoria.",
+    )
+    geometry = models.LineStringField(
+        help_text="Geometría de la trayectoria."
+    )
+
+    def __str__(self):
+        return self.shape_id
+
+
+class Shape(models.Model):
+    """The path the vehicle takes along the route.
+    Implements shapes.txt."""
+
+    shape_id = models.CharField(
+        max_length=255,
         help_text="Identificador único de una trayectoria.",
     )
     pt_lat = models.DecimalField(
@@ -670,7 +672,7 @@ class Shape(models.Model):
         help_text="Longitud WGS 84 de punto de la trayectoria.",
     )
     pt_sequence = models.PositiveIntegerField(
-        help_text="Secuencia en la que los puntos de la trayectoria se conectan para crear la forma"
+        help_text="Secuencia en la que los puntos de la trayectoria se conectan para crear la forma o geometría"
     )
     dist_traveled = models.DecimalField(
         default=0.0,
@@ -678,7 +680,7 @@ class Shape(models.Model):
         decimal_places=3,
         null=True,
         blank=True,
-        help_text="Precisión es en metros (0.001 km)",
+        help_text="La unidad es km, la precisión es en metros (0.001 km)",
     )
 
     class Meta:
