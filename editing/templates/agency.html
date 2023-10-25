@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+<h1>Edición</h1>
+
+<p>Datos GTFS editables por usuarios con los permisos.</p>
+
+<h2>Agencia de transportes</h2>
+
+<p>Llenar la información a continuación.</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="agency_id" class="form-label">Identificador de la agencia</label>
+        <input type="text" class="form-control" name="agency_id" id="agency_id">
+    </div>
+    <div class="mb-3">
+        <label for="agency_name" class="form-label">Nombre de la agencia</label>
+        <input type="text" class="form-control" name="agency_name" id="agency_name">
+    </div>
+    <div class="mb-3">
+        <label for="agency_url" class="form-label">Dirección web de la agencia</label>
+        <input type="text" class="form-control" name="agency_url" id="agency_url" pattern="https?://.+">
+    </div>
+    <div class="mb-3">
+        <label for="agency_timezone" class="form-label">Zona horaria de la agencia</label>
+        <input type="text" class="form-control" name="agency_timezone" id="agency_timezone">
+    </div>
+    <div class="mb-3">
+        <label for="agency_lang" class="form-label">Idioma de la agencia</label>
+        <input type="text" class="form-control" name="agency_lang" id="agency_lang">
+    </div>
+    <div class="mb-3">
+        <label for="agency_phone" class="form-label">Teléfono de la agencia</label>
+        <input type="text" class="form-control" name="agency_phone" id="agency_phone">
+    </div>
+    <div class="mb-3">
+        <label for="agency_fare_url" class="form-label">Sitio con tarifas de la agencia</label>
+        <input type="text" class="form-control" name="agency_fare_url" id="agency_fare_url">
+    </div>
+    <div class="mb-3">
+        <label for="agency_email" class="form-label">Correo electrónico de la agencia</label>
+        <input type="email" class="form-control" name="agency_email" id="agency_email">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>    
+</form>
+
+{% endblock %}
