@@ -11,6 +11,7 @@ class Company(models.Model):
     TODO: add PhoneNumberField
     """
 
+    company_id = models.CharField(max_length=255, blank=True, primary_key=True)
     name = models.CharField(max_length=127)
     address = models.CharField(max_length=1024)
     phone = models.CharField(max_length=255)
@@ -27,12 +28,15 @@ class Feed(models.Model):
 
     TODO: a function to check if there are changes in the feed.
     TODO: a function to create the feed_id from the date of creation.
+    TODO: evaluate if feed_info is what we want here (creo que no)
     """
 
-    feed_id = models.CharField(max_length=255, blank=True, db_index=True)
+    feed_id = models.CharField(max_length=255, blank=True, primary_key=True)
+    company_id = models.ForeignKey("Company", null=True, on_delete=models.SET_NULL)
     zip_file = models.FileField(upload_to="feeds/")
     created_at = models.DateTimeField(auto_now_add=True)
-    current = models.BooleanField(default=True)
+    is_current = models.BooleanField(default=True)
+    in_edition = models.BooleanField(default=False)
 
     def __str__(self):
         """Returns a name for the feed with a version number. The
@@ -243,7 +247,7 @@ class Trip(models.Model):
         default=None,
         null=True,
         blank=True,
-        help_text="Hora de salida del viaje.",
+        help_text="Hora de salida del viaje (ELIMINAR).",
     )
     arrival_time = models.TimeField(
         auto_now=False,
@@ -251,7 +255,7 @@ class Trip(models.Model):
         default=None,
         null=True,
         blank=True,
-        help_text="Hora de llegada del viaje.",
+        help_text="Hora de llegada del viaje (ELIMINAR).",
     )
     duration = models.PositiveIntegerField(
         default=None, null=True, blank=True, help_text="Minutos de duración del viaje."
