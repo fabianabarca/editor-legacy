@@ -1,0 +1,73 @@
+<h1>Edición</h1>
+
+<p>Datos GTFS editables por usuarios con los permisos.</p>
+
+<h2>Agencia de transportes</h2>
+
+<p>Llenar la información a continuación.</p>
+
+<form method="POST">
+    <div class="mb-3">
+        <label for="route_id" class="form-label">Identificador de la ruta</label>
+        <input type="text" class="form-control" name="route_id" id="route_id">
+    </div>
+
+
+    <div class="mb-3">
+        <form>
+            <label for="route_agency">Escoje la agencia de la ruta</label>
+            <select name="route_agency">
+              <option value="0">Opción de Agencia.</option>
+            </select>
+          </form>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="route_short_name" class="form-label">Nombre corto de la ruta</label>
+        <input type="text" class="form-control" name="agency_url" id="route_short_name">
+    </div>
+    <div class="mb-3">
+        <label for="route_long_name" class="form-label">Nombre largo de la ruta</label>
+        <input type="text" class="form-control" name="route_long_name" id="route_long_name">
+    </div>
+    <div class="mb-3">
+        <label for="route_desc" class="form-label">Descripción detallada de la ruta</label>
+        <input type="text" class="form-control" name="route_desc" id="route_desc">
+    </div>
+
+    <div class="mb-3">
+      <form>
+        <label for="route_type">Tipo de ruta</label>
+        <select name="route_type">
+          <option value="0">Tranvía o tren ligero.</option>
+          <option value="1">Subterráneo o metro.</option>
+          <option value="2">Ferrocarril.</option>
+          <option value="3">Bus.</option>
+          <option value="4">Ferry.</option>
+          <option value="5">Teleférico.</option>
+          <option value="6">Góndola.</option>
+          <option value="7">Funicular.</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="mb-3">
+        <label for="route_url" class="form-label">Página web de la ruta</label>
+        <input type="text" class="form-control" name="route_url" id="route_url">
+    </div>
+
+    <div class="mb-3">
+        <label for="route_color" class="form-label">Color de la ruta en código hexadecimal</label>
+        <input type="email" class="form-control" name="route_color" id="route_color">
+    </div>
+
+    <div class="mb-3">
+        <label for="route_text_color" class="form-label">Color del texto de ruta en código hexadecimal</label>
+        <input type="email" class="form-control" name="route_text_color" id="route_text_color">
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>    
+</form>
