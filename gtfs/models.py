@@ -159,6 +159,17 @@ class Route(models.Model):
     Maps to route.txt in the GTFS feed.
     """
 
+    ROUTE_TYPE_CHOICES = (
+        (0, "Tranvía o tren ligero"),
+        (1, "Subterráneo o metro"),
+        (2, "Ferrocarril"),
+        (3, "Bus"),
+        (4, "Ferry"),
+        (5, "Teleférico"),
+        (6, "Góndola"),
+        (7, "Funicular"),
+    )
+
     route_id = models.CharField(
         primary_key=True,
         max_length=64,
@@ -180,16 +191,7 @@ class Route(models.Model):
     route_type = models.IntegerField(
         "route type",
         default=3,
-        choices=(
-            (0, "Tranvía o tren ligero."),
-            (1, "Subterráneo o metro."),
-            (2, "Ferrocarril."),
-            (3, "Bus."),
-            (4, "Ferry."),
-            (5, "Teleférico."),
-            (6, "Góndola."),
-            (7, "Funicular."),
-        ),
+        choices=ROUTE_TYPE_CHOICES,
         help_text="Medio de transporte usado en la ruta.",
     )
     url = models.CharField(
