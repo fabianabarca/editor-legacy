@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import platform
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,8 +93,9 @@ DATABASES = {
     },
 }
 
-GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
-GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH')
+if not (platform.platform() == "Linux" or platform.machine() == "x86_64"):
+    GDAL_LIBRARY_PATH = config('GDAL_LIBRARY_PATH')
+    GEOS_LIBRARY_PATH = config('GEOS_LIBRARY_PATH')
 
 
 # Password validation
