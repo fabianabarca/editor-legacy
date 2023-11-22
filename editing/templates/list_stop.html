@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+  <h1>Listado de Paradas</h1>
+  {% csrf_token %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID de Parada</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stop in stops %}
+        <tr>
+          <td>{{ stop.stop_id }}</td>
+          <td>{{ stop.name }}</td>
+          <td>{{ stop.desc }}</td>
+          <td>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

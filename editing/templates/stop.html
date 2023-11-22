@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+<h1>Edición</h1>
+
+<p>Datos GTFS editables por usuarios con los permisos.</p>
+
+<h2>Paradas de transportes</h2>
+
+<p>Llenar la información a continuación.</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="stop_id" class="form-label">Identificador de la parada</label>
+        <input type="text" class="form-control" name="stop_id" id="stop_id">
+    </div>
+    <div class="mb-3">
+        <label for="stop_name" class="form-label">Nombre de la parada</label>
+        <input type="text" class="form-control" name="stop_name" id="stop_name">
+    </div>
+    <div class="mb-3">
+        <label for="stop_desc" class="form-label">Descripción de la parada</label>
+        <input type="text" class="form-control" name="stop_desc" id="stop_desc">
+    </div>
+    <div class="mb-3">
+        <label for="stop_lat" class="form-label">Latitud de la parada</label>
+        <input type="text" class="form-control" name="stop_lat" id="stop_lat">
+    </div>
+    <div class="mb-3">
+        <label for="stop_lon" class="form-label">Longitud de la parada</label>
+        <input type="text" class="form-control" name="stop_lon" id="stop_lon">
+    </div>
+    <div class="mb-3">
+        <label for="stop_loc" class="form-label">Ubicación de la parada</label>
+        <input type="text" class="form-control" name="stop_loc" id="stop_loc">
+    </div>
+    <div class="mb-3">
+        <label for="stop_url">Dirección web de la parada</label>
+        <select name="stop_url">
+        {% for choice in zone.zone_id.choices %}
+            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="stop_url" class="form-label">Dirección web de la parada</label>
+        <input type="text" class="form-control" name="stop_url" id="stop_url" pattern="https?://.+">
+    </div>
+    <div>
+        <label for="stop_location_type">Selecciona el tipo de parada:</label>
+        <select id="stop_location_type" name="stop_location_type">
+            <option value="0">Parada</option>
+            <option value="1">Estación</option>
+        </select>
+        <br>
+    </div>
+    <br>
+    <div class="mb-3">
+        <label for="stop_parent_station" class="form-label">La estación asociada a la parada:</label>
+        <input type="text" class="form-control" name="stop_parent_station" id="stop_parent_station">
+    </div>
+    <br>
+    <div>
+        <label for="stop_wheelchair_boarding">¿Es posible subir al transporte en silla de ruedas?</label>
+        <select id="stop_wheelchair_boarding" name="stop_wheelchair_boarding">
+            <option value="0">No hay información.</option>
+            <option value="1">Abordaje parcial de silla de ruedas.</option>
+            <option value="2">Las sillas de ruedas no pueden subir.</option>
+        </select>
+        <br>
+    </div>
+    <br>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>    
+</form>
+
+{% endblock %}

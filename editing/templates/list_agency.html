@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+  <h1>Listado de Agencias</h1>
+  {% csrf_token %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID de Agencia</th>
+        <th>Nombre</th>
+        <th>URL</th>
+        <th>Zona Horaria</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for agency in agencies %}
+        <tr>
+          <td>{{ agency.agency_id }}</td>
+          <td>{{ agency.name }}</td>
+          <td>{{ agency.url }}</td>
+          <td>{{ agency.timezone }}</td>
+          <td>
+            <a href="{% url 'delete_agency' agency.agency_id %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'edit_agency' agency.agency_id %}" class="btn btn-primary">Editar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

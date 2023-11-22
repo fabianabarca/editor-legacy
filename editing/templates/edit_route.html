@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+  <h1>Edición</h1>
+
+  <p>Datos GTFS editables por usuarios con los permisos.</p>
+
+  <h2>Rutas de transportes</h2>
+
+  <p>Llenar la información a continuación.</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+      <label for="route_id" class="form-label">Identificador de la ruta</label>
+      <input type="text" class="form-control" name="route_id" id="route_id" value="{{ route.route_id }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_agency">Escoje la agencia de la ruta</label>
+      <select name="route_agency">
+          {% for agency in agencies %}
+              <option value="{{ agency.agency_id }}" {% if agency == route.agency %}selected{% endif %}>{{ agency.name }}</option>
+          {% endfor %}
+      </select>
+  </div>
+
+    <div class="mb-3">
+      <label for="route_short_name" class="form-label">Nombre corto de la ruta</label>
+      <input type="text" class="form-control" name="route_short_name" id="route_short_name" value="{{ route.short_name }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_long_name" class="form-label">Nombre largo de la ruta</label>
+      <input type="text" class="form-control" name="route_long_name" id="route_long_name" value="{{ route.long_name }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_desc" class="form-label">Descripción detallada de la ruta</label>
+      <textarea name="route_desc" id="route_desc" cols="30" rows="4" required>{{ route.desc }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_type">Tipo de ruta</label>
+      <select name="route_type">
+        {% for route_type in route_type_choices %}
+          <option value="{{ route_type.0 }}" {% if route.route_type == route_type.0 %} selected {% endif %}>{{ route_type.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_url" class="form-label">Página web de la ruta</label>
+      <input type="url" class="form-control" name="route_url" id="route_url" value="{{ route.url }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="route_color" class="form-label">Color de la ruta en código hexadecimal</label>
+      <input type="color" class="form-control" name="route_color" id="route_color" value="{{ route.color }}">
+    </div>
+
+    <div class="mb-3">
+      <label for="route_text_color" class="form-label">Color del texto de ruta en código hexadecimal</label>
+      <input type="color" class="form-control" name="route_text_color" id="route_text_color" value="{{ route.text_color }}">
+    </div>
+
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+
+{% endblock %}

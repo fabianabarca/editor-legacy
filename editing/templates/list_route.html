@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+  <h1>Listado de Rutas</h1>
+  {% csrf_token %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID de Ruta</th>
+        <th>Nombre Corto</th>
+        <th>Nombre Largo</th>
+        <th>Tipo de Ruta</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for route in routes %}
+        <tr>
+          <td>{{ route.route_id }}</td>
+          <td>{{ route.short_name }}</td>
+          <td>{{ route.long_name }}</td>
+          <td>{{ route.get_route_type_display }}</td>
+          <td>
+            <a href="{% url 'delete_route' route.route_id %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'edit_route' route.route_id %}" class="btn btn-primary">Editar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

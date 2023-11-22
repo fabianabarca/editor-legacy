@@ -5,11 +5,25 @@
 {% block main %}
 
 <p>
-    Seleccione la tabla que quiere agregar o editar:
+    Seleccione la tabla que quiere agregar:
 </p>
 
 <ul>
-    <li><a href="{% url 'agency' %}">Agencia</a></li>
+    <li><a href="{% url 'create_agency' %}">Agencia</a></li>
+    <li><a href="{% url 'create_route' %}">Rutas</a></li>
+    <li><a href="{% url 'create_stop' %}">Paradas</a></li>
+</ul>
+
+<br>
+
+<p>
+    Seleccione la tabla que quiere eliminar o editar:
+</p>
+
+<ul>
+    <li><a href="{% url 'list_agency' %}">Agencia</a></li>
+    <li><a href="{% url 'list_route' %}">Rutas</a></li>
+    <li><a href="{% url 'create_stop' %}">Paradas</a></li>
 </ul>
 
 {% endblock %}
