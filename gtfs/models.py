@@ -97,9 +97,10 @@ class Stop(models.Model):
         db_index=True,
         help_text="Identificador único de una parada o estación.",
     )
+    code = models.CharField(max_length=127, blank=True, null=True)
     name = models.CharField(max_length=255, help_text="Nombre de la parada.")
     desc = models.CharField(
-        "description", max_length=255, blank=True, help_text="Descripción de la parada."
+        "description", max_length=511, blank=True, null=True, help_text="Descripción de la parada."
     )
     lat = models.DecimalField(
         max_digits=22,
@@ -111,10 +112,10 @@ class Stop(models.Model):
         decimal_places=16,
         help_text="Longitud WGS 84 de la parada o estación.",
     )
-    loc = models.PointField(
+    point = models.PointField(
         blank=True, null=True, help_text="Ubicación de la parada o estación."
     )
-    zone = models.ForeignKey(
+    zone_id = models.ForeignKey(
         "Zone",
         null=True,
         blank=True,
@@ -145,10 +146,6 @@ class Stop(models.Model):
         ),
         help_text="¿Es posible subir al transporte en silla de ruedas?",
     )
-
-    class Meta:
-        verbose_name = "stop"
-        verbose_name_plural = "stops"
 
     def __str__(self):
         return self.stop_id + ": " + self.name
@@ -203,13 +200,13 @@ class Route(models.Model):
         blank=True,
         help_text="Color del texto de ruta en código hexadecimal.",
     )
-
-    class Meta:
-        verbose_name = "route"
-        verbose_name_plural = "routes"
+    sort_order = models.PositiveIntegerField(
+        blank=True, null=True,
+        help_text="Ordena las rutas en una forma apropiada para la presentación a usuarios. Menor número es mayor prioridad."
+    )
 
     def __str__(self):
-        return self.long_name
+        return f"{self.short_name}: {self.long_name}"
 
 
 class Trip(models.Model):
@@ -262,15 +259,20 @@ class Trip(models.Model):
         choices=(("0", "Hacia San José."), ("1", "Desde San José.")),
         help_text="Dirección para rutas en dos sentidos.",
     )
-    # block = models.ForeignKey(
-    #     'Block', null=True, blank=True, on_delete=models.SET_NULL,
-    #     help_text="Block of sequential trips that this trip belongs to.")
-    shape = models.ForeignKey(
-        "Shape",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
+    block = models.CharField(
+        max_length=63, null=True, blank=True,
+        help_text="Block of sequential trips that this trip belongs to."
+    )
+    shape = models.CharField(
+        max_length=127,
+        null=True, blank=True,
         help_text="Forma de la ruta.",
+    )
+    geoshape = models.ForeignKey(
+        "GeoShape",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        help_text="Forma de la ruta (geometría de GeoDjango).",
     )
     wheelchair_accessible = models.CharField(
         max_length=1,
