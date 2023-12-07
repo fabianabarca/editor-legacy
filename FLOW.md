@@ -41,18 +41,21 @@ Un sitio para la edición de todos los campos de cada una de las tablas. Cuando 
 El orden en el que se realiza es, específicamente:
 
 1. `agency`
-2. `routes`
-3. `stops`: esta posiblemente sea una tabla "universal" de referencia creada por una autoridad competente (como el CTP) porque las paradas no se pueden "inventar", sino que son predefinidas. Aun así, posiblemente en nuestro editor tengamos que habilitar la creación si no existe esa tabla "universal"
+1. `routes`
+1. `stops`: esta posiblemente sea una tabla "universal" de referencia creada por una autoridad competente (como el CTP) porque las paradas no se pueden "inventar", sino que son predefinidas. Aun así, posiblemente en nuestro editor tengamos que habilitar la creación si no existe esa tabla "universal"
   - Nota: cuando se genera la tabla `stops` para un feed particular, deben considerarse los `zone_id` de la tabla auxiliar `route_stops`.
-5. `calendar`
-6. `calendar_dates`
-7. `shapes`: aquí realmente se va a editar la tabla `geoshapes` (**tabla auxiliar**) que se hace **con un mapa** y editando la línea o trayectoria que recorre cada `shape`, luego se genera automáticamente la tabla `shapes` propiamente
-8. `route_stops` (**tabla auxiliar**): representa la secuencia de paradas que sigue una ruta (`route_id`) en una dirección (`direction_id`), bajo la premisa de que siempre es la misma (algo que asumimos que aplica en Costa Rica)
-9. `trips`: es la tabla "central" del *feed* a partir de la cual se construye. Referencia de [Partridge](https://github.com/remix/partridge): "En el núcleo de Partridge hay un gráfico de dependencia con raíz en `trips.txt`. Los datos desconectados se descartan de acuerdo con este gráfico al leer el contenido de un *feed*." O también: "lo que no está vinculado a un viaje, no existe" (F. Abarca, 2023)
+1. `calendar`
+1. `calendar_dates`
+1. `geoshapes` (**tabla auxiliar**): **con un mapa** se edita la línea o trayectoria que recorre cada `shape`.
+1. `shapes`: se genera automáticamente de la tabla `geoshapes`.
+1. `route_stops` (**tabla auxiliar**): representa la secuencia de paradas que sigue una ruta (`route_id`) en una dirección (`direction_id`), bajo la premisa de que siempre es la misma (algo que asumimos que aplica en Costa Rica)
+1. `trips`: es la tabla "central" del *feed* a partir de la cual se construye. Referencia de [Partridge](https://github.com/remix/partridge): "En el núcleo de Partridge hay un gráfico de dependencia con raíz en `trips.txt`. Los datos desconectados se descartan de acuerdo con este gráfico al leer el contenido de un *feed*." O también: "lo que no está vinculado a un viaje, no existe" (F. Abarca, 2023)
 10. `trip_times` (**tabla auxiliar**): tiene la indicación explícita de la hora de salida del viaje en la parada inicial y, opcionalmente, en otras paradas donde el tiempo de salida es exacto (es decir: `timepoint` = 1) lo cual es heredado ("jalado") de la tabla `route_stops`. Esto es una emulación de la forma habitual de dar los horarios en Costa Rica, es decir: dar la hora de salida y nada más, no hay información sobre cuáles son las siguientes paradas y a qué hora pasan por ahí.
   - Nota: en el caso del método **A** de estimación de tiempos de paradas (ver siguiente) es necesario también un registro adicional con el tiempo de llegada a la última parada de la ruta (que está en `route_stops`).
   - Sobre si es necesario el tiempo de llegada del viaje para utilizar el método A, el sistema debe determinarlo consultando la tabla de funciones de aproximación para tiempos de llegada basados en mediciones, `stop_times_estimations` (funciones polinomiales). Si no existe un estimador para esta combinación de ruta/dirección, entonces sí es necesario pedir la estimación "manual" aproximada del tiempo de llegada del viaje para hacer los cálculos intermedios con el método A.
-10. `stop_times`: es una tabla *generada automáticamente* con ayuda del paquete `estimador` y con base en dos métodos:
+1. `stop_times_measurements` (**tabla auxiliar**): una tabla donde se hace registros de tiempos de llegada a las paradas de todos los buses y de donde se van a construir las funciones polinomiales de aproximación en el método B del estimador.
+1. `stop_times_estimations` (**tabla auxiliar**): funciones polinomiales calculados a partir de los datos de la tabla `stop_times_measurements` utilizados para estimar tiempos de llegada con el método B.
+1. `stop_times`: es una tabla *generada automáticamente* con ayuda del paquete `estimador` y con base en dos métodos:
     - A: conociendo el tiempo de salida y de llegada del viaje completo (o de un segmento) estimación de forma proporcional a la distancia entre paradas
     - B: conociendo el tiempo de salida y funciones polinomiales de estimación de tiempos de llegada a cada parada, generadas a partir de mediciones reales de los viajes de la ruta
 11. `fare_attributes`: los precios de las tarifas
